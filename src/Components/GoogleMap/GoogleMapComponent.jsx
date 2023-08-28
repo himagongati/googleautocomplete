@@ -23,25 +23,16 @@ export default function GoogleMapComponent() {
       longitude
     ]);
   
-    const center = useMemo(() => ({ lat: 20.5937, lng: 78.9629 }), []);
-   console.log(Object.values(latlng));
-    
+    const center = useMemo(() => ({ lat: 20.5937, lng: 78.9629 }), []);    
   return (
    <Box width={'100%'} height={'100vh'} >
-      
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={Object.values(latlng)[0] ? latlng  :  center}
-        zoom={Object.values(latlng)[0] ? 10 : 5} 
+        center={latlng.lat && latlng.lng ? latlng  :  center}
+        zoom={latlng.lat && latlng.lng  ? 10 : 5} 
       >
-       {Object.values(latlng)[0] &&  <MarkerF position={latlng} />}
+       {latlng.lat && latlng.lng &&  <MarkerF position={latlng} />}
       </GoogleMap>
-
-    
-    
-   
-   
-
    </Box>
   )
 }

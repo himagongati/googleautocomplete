@@ -28,7 +28,7 @@ export default function AutoCompleteComponent() {
   }, [inputValue, dispatch]);
 
 
-  console.log(value, "value");
+  // console.log(value, "value");
 
 
 
@@ -51,16 +51,14 @@ export default function AutoCompleteComponent() {
         dispatch(autoCompleteActions.setValue(newValue));
         const { place_id } = newValue ? newValue : '';
         const geocoder = new window.google.maps.Geocoder();
-
-
         if (newValue !== null) {
           geocoder.geocode({ placeId: place_id }, (results, status) => {
             if (status === 'OK') {
               const { lat, lng } = results[0].geometry.location;
 
               // Use lat and lng to plot on map or for further use
-              console.log('Latitude:', lat());
-              console.log('Longitude:', lng());
+              // console.log('Latitude:', lat());
+              // console.log('Longitude:', lng());
               dispatch(latLongActions.setLatitude(lat()))
               dispatch(latLongActions.setLongitude(lng()))
             } else {
@@ -70,6 +68,8 @@ export default function AutoCompleteComponent() {
           });
 
         } else {
+          dispatch(latLongActions.setLatitude(null))
+          dispatch(latLongActions.setLongitude(null))
           dispatch(autoCompleteActions.clearState())
         }
 
